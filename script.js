@@ -82,12 +82,12 @@
 // ---------------------------------------------
 // Photo upload placeholders (saved in localStorage)
 // ---------------------------------------------
-(function () {
-  document.querySelectorAll('.photo-card').forEach((card) => {
+function setupPhotoUpload(cardSelector, imgSelector, keyPrefix) {
+  document.querySelectorAll(cardSelector).forEach((card) => {
     const input = card.querySelector('.photo-input');
-    const img = card.querySelector('.photo-img');
+    const img = card.querySelector(imgSelector);
     const slot = card.dataset.slot;
-    const key = 'grace-bday-photo-' + slot;
+    const key = keyPrefix + slot;
 
     const saved = localStorage.getItem(key);
     if (saved) {
@@ -111,7 +111,10 @@
       reader.readAsDataURL(file);
     });
   });
-})();
+}
+
+setupPhotoUpload('.photo-card', '.photo-img', 'grace-bday-photo-');
+setupPhotoUpload('.polaroid', '.polaroid-img', 'grace-bday-polaroid-');
 
 // ---------------------------------------------
 // Candle: click to blow out (and relight)
