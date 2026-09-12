@@ -1,5 +1,5 @@
 // ---------------------------------------------
-// Confetti: a brief, tasteful burst — not a storm
+// Confetti: big, festive bursts with a lingering fall
 // ---------------------------------------------
 (function () {
   const canvas = document.getElementById('confetti-canvas');
@@ -13,22 +13,39 @@
   resize();
   window.addEventListener('resize', resize);
 
-  const colors = ['#AFDCEB', '#ADD8E6', '#86C5D8', '#FFB6C1', '#EF93A6', '#FBF8F4'];
+  const colors = ['#AFDCEB', '#ADD8E6', '#86C5D8', '#FFB6C1', '#EF93A6', '#FBF8F4', '#F7D9E0'];
 
   function makePiece(xRatio, yRatio) {
     const angle = Math.random() * Math.PI * 2;
-    const speed = 2.5 + Math.random() * 5;
-    const life = 55 + Math.random() * 25;
+    const speed = 5 + Math.random() * 11;
+    const life = 140 + Math.random() * 90;
     return {
-      x: W * xRatio + (Math.random() - 0.5) * 60,
-      y: H * yRatio + (Math.random() - 0.5) * 30,
+      x: W * xRatio + (Math.random() - 0.5) * 100,
+      y: H * yRatio + (Math.random() - 0.5) * 40,
       vx: Math.cos(angle) * speed,
-      vy: Math.sin(angle) * speed - 2.5,
-      size: 5 + Math.random() * 5,
+      vy: Math.sin(angle) * speed - 4,
+      size: 7 + Math.random() * 9,
       color: colors[Math.floor(Math.random() * colors.length)],
       long: Math.random() > 0.5,
       rotation: Math.random() * 360,
-      rotSpeed: (Math.random() - 0.5) * 8,
+      rotSpeed: (Math.random() - 0.5) * 10,
+      life: life,
+      maxLife: life,
+    };
+  }
+
+  function makeFaller() {
+    const life = 220 + Math.random() * 120;
+    return {
+      x: Math.random() * W,
+      y: -20,
+      vx: (Math.random() - 0.5) * 1.5,
+      vy: 1.5 + Math.random() * 2,
+      size: 6 + Math.random() * 8,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      long: Math.random() > 0.5,
+      rotation: Math.random() * 360,
+      rotSpeed: (Math.random() - 0.5) * 6,
       life: life,
       maxLife: life,
     };
@@ -40,7 +57,7 @@
     ctx.save();
     ctx.translate(p.x, p.y);
     ctx.rotate((p.rotation * Math.PI) / 180);
-    ctx.globalAlpha = Math.max(p.life / p.maxLife, 0);
+    ctx.globalAlpha = Math.max(Math.min(p.life / 40, 1), 0);
     ctx.fillStyle = p.color;
     if (p.long) {
       ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
@@ -55,27 +72,43 @@
   function tick() {
     ctx.clearRect(0, 0, W, H);
     pieces.forEach((p) => {
-      p.vy += 0.2;
-      p.vx *= 0.98;
+      p.vy += 0.15;
+      p.vx *= 0.99;
       p.x += p.vx;
       p.y += p.vy;
       p.rotation += p.rotSpeed;
       p.life -= 1;
       drawPiece(p);
     });
-    pieces = pieces.filter((p) => p.life > 0);
+    pieces = pieces.filter((p) => p.life > 0 && p.y < H + 40);
     requestAnimationFrame(tick);
   }
   tick();
 
   window.confettiBurst = function (xRatio, yRatio, count) {
-    for (let i = 0; i < (count || 50); i++) {
+    for (let i = 0; i < (count || 90); i++) {
       pieces.push(makePiece(xRatio, yRatio));
     }
   };
 
+  // A grand multi-wave burst with a lingering shower — used on page load
+  window.confettiGrand = function () {
+    window.confettiBurst(0.5, 0.22, 180);
+    setTimeout(() => window.confettiBurst(0.18, 0.3, 100), 150);
+    setTimeout(() => window.confettiBurst(0.82, 0.3, 100), 250);
+    setTimeout(() => window.confettiBurst(0.35, 0.18, 80), 400);
+    setTimeout(() => window.confettiBurst(0.65, 0.18, 80), 500);
+
+    let elapsed = 0;
+    const shower = setInterval(() => {
+      for (let i = 0; i < 6; i++) pieces.push(makeFaller());
+      elapsed += 120;
+      if (elapsed > 4000) clearInterval(shower);
+    }, 120);
+  };
+
   window.addEventListener('load', () => {
-    window.confettiBurst(0.5, 0.28, 90);
+    window.confettiGrand();
   });
 })();
 
@@ -129,14 +162,14 @@ setupPhotoUpload('.polaroid', '.polaroid-img', 'grace-bday-polaroid-');
     candle.setAttribute('data-lit', lit ? 'false' : 'true');
 
     const rect = candle.getBoundingClientRect();
-    window.confettiBurst(rect.left / window.innerWidth, rect.top / window.innerHeight, lit ? 40 : 6);
+    window.confettiBurst(rect.left / window.innerWidth, rect.top / window.innerHeight, lit ? 130 : 14);
 
     if (lit) {
       const smoke = document.createElement('span');
       smoke.className = 'smoke';
       candle.appendChild(smoke);
       setTimeout(() => smoke.remove(), 1300);
-      wishLine.textContent = 'Wish made.';
+      wishLine.textContent = 'May all your wishes come true!';
     } else {
       wishLine.textContent = ' ';
     }
@@ -158,7 +191,7 @@ setupPhotoUpload('.polaroid', '.polaroid-img', 'grace-bday-polaroid-');
       window.confettiBurst(
         (rect.left + rect.width / 2) / window.innerWidth,
         rect.top / window.innerHeight,
-        50
+        160
       );
     }
   });

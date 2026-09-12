@@ -12,131 +12,16 @@
 </head>
 <body>
 
-<canvas id="confetti-canvas"></canvas>
+<div class="landing">
+  <p class="landing-question">Do you know what day it is today..?</p>
 
-<main id="top">
+  <button class="landing-cat-btn" id="landing-cat" aria-label="Click the cat">
+    <img class="landing-cat-img" src="images/cat.png" alt="A curious cat">
+  </button>
 
-  <section class="hero">
-    <div class="hero-blob blob-blue" aria-hidden="true"></div>
-    <div class="hero-blob blob-pink" aria-hidden="true"></div>
+  <p class="landing-cta">Click the cat!</p>
+</div>
 
-    <div class="hero-polaroids" aria-hidden="false">
-      <label class="polaroid pola-1 has-photo" data-slot="1">
-        <input type="file" accept="image/*" class="photo-input">
-        <span class="polaroid-tape"></span>
-        <span class="polaroid-frame">
-          <img class="polaroid-img" src="images/polaroid-1.jpg" alt="Grace on a video call">
-          <span class="polaroid-placeholder">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-          </span>
-        </span>
-      </label>
-      <label class="polaroid pola-2 has-photo" data-slot="2">
-        <input type="file" accept="image/*" class="photo-input">
-        <span class="polaroid-tape"></span>
-        <span class="polaroid-frame">
-          <img class="polaroid-img" src="images/polaroid-2.jpg" alt="A Molly Tea drink">
-          <span class="polaroid-placeholder">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-          </span>
-        </span>
-      </label>
-      <label class="polaroid pola-3 has-photo" data-slot="3">
-        <input type="file" accept="image/*" class="photo-input">
-        <span class="polaroid-tape"></span>
-        <span class="polaroid-frame">
-          <img class="polaroid-img" src="images/polaroid-3.jpg" alt="A portrait of Grace">
-          <span class="polaroid-placeholder">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-          </span>
-        </span>
-      </label>
-    </div>
-
-    <div class="hero-content">
-    <p class="eyebrow">surprise!</p>
-    <h1 class="hero-title">Happy birthday,<br><em>Grace.</em></h1>
-    <p class="hero-sub">Although I'm not in Cupertino w you for this very special day, I can't not get you a gift haha</p>
-
-    <img class="hero-cat" src="images/cat.png" alt="" aria-hidden="true">
-
-    <a class="scroll-cue" href="#photos"><span></span>scroll</a>
-    </div>
-  </section>
-
-  <section id="photos" class="photos">
-    <p class="eyebrow center">moments</p>
-    <h2 class="section-title">A few of our favorites</h2>
-    <p class="section-sub">Click a frame to drop in a photo.</p>
-
-    <div class="photo-grid">
-      <label class="photo-card has-photo" data-slot="1">
-        <input type="file" accept="image/*" class="photo-input">
-        <img class="photo-img" src="images/moment-1.jpg" alt="Dinner with friends">
-        <div class="photo-placeholder">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-          <span>add a photo</span>
-        </div>
-      </label>
-      <label class="photo-card has-photo" data-slot="2">
-        <input type="file" accept="image/*" class="photo-input">
-        <img class="photo-img" src="images/moment-2.jpg" alt="A gazebo at night">
-        <div class="photo-placeholder">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-          <span>add a photo</span>
-        </div>
-      </label>
-      <label class="photo-card has-photo" data-slot="3">
-        <input type="file" accept="image/*" class="photo-input">
-        <img class="photo-img" src="images/moment-3.jpg" alt="Oysters and lemon">
-        <div class="photo-placeholder">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-          <span>add a photo</span>
-        </div>
-      </label>
-    </div>
-  </section>
-
-  <section id="cake" class="cake-section">
-    <p class="eyebrow center">make a wish</p>
-    <h2 class="section-title">Blow out the candle, don't forget to make a wish!</h2>
-    <p class="section-sub">Click the flame.</p>
-
-    <div class="cake-stage">
-      <button class="candle" id="candle" aria-label="Blow out the candle">
-        <span class="flame"></span>
-        <span class="wick"></span>
-      </button>
-      <img class="cake-img" src="images/Subject.png" alt="A little strawberry cake">
-      <div class="cake-shadow"></div>
-    </div>
-    <p class="wish-line" id="wish-line">&nbsp;</p>
-  </section>
-
-  <section id="gift" class="gift-section">
-    <p class="eyebrow center">a little something</p>
-    <h2 class="section-title">Open your gift :)</h2>
-    <p class="section-sub">Click the box.</p>
-
-    <button class="gift-stage" id="gift-stage" aria-label="Open your gift">
-      <img class="gift-lid" id="gift-lid" src="images/gift-lid.svg" alt="">
-      <img class="gift-box" src="images/gift-box.svg" alt="">
-    </button>
-
-    <div class="message-card" id="message-card">
-      <p class="message-text" id="message-text">Happy Birthday, Grace grookymonster Xu! I'm so happy we became friends this past year, I really enjoyed our time together at CalPoly SLO. You're seriously so funny, smart, viby, and funny. I hope both of us can transfer to the schools we want to. Anyways, have a good bday. I can't wait to see you soon, I've missed you.</p>
-    </div>
-  </section>
-
-</main>
-
-<footer class="footer">
-  <svg class="brand-mark" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M6 10c0-2.8 1.6-4.6 2.4-5.4.3-.3.8-.1.8.3v1.8c1-.6 2-.9 2.8-.9s1.8.3 2.8.9V4.9c0-.4.5-.6.8-.3.8.8 2.4 2.6 2.4 5.4 0 4-2.7 7-6 7s-6-3-6-7Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
-  </svg>
-  <p>Made for Grace</p>
-</footer>
-
-<script src="script.js"></script>
+<script src="landing.js"></script>
 </body>
 </html>
